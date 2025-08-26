@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+       .custom-flesh:hover{
+        transform: scale(0.85);
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+    .front{
+      width: 30%;
+      height: 550px;
+      background: linear-gradient(to right, black, transparent);
+      position: absolute;
+      top: 0;
+      left: 40%;
+      z-index: 30;
+    }
+    .front2{
+      width: 10%;
+      display: flex;
+      position: absolute;
+      background: linear-gradient(to left,black,transparent);
+      left: 88%;
+      top: 0;
+      z-index: 30;
+      height: 550px;
+    }
+    #slider{
+      will-change: transform;
+    }
+   
+    </style>
+   </head>
+
+   <body class="bg-black">
+     <div id="dragsrc" class="w-[97%] absolute mt-10 ">
+      <div id="number" class="text-6xl font-bold mt-16 mx-10 flex absolute z-40 text-white">
+        01/04
+      </div>
+
+      <div id="images" class="w-[100%] h-[450px] mt-16 flex gap-6 mx-4 z-0 absolute overflow-hidden">
+        <div id="slider" class="flex gap-6 transition-transform duration-500 ease-in-out">
+        <img src="https://cdn.prod.website-files.com/674d847bf8e817966d307714/674d90f74ff2fe8b0b912b97_slide-1.avif" class="slide rounded-t-lg">
+        <img src="https://cdn.prod.website-files.com/674d847bf8e817966d307714/674d90f74ff2fe8b0b912b97_slide-1.avif" class="slide rounded-t-lg">
+        <img src="https://cdn.prod.website-files.com/674d847bf8e817966d307714/674d90f74ff2fe8b0b912b97_slide-1.avif" class="slide rounded-t-lg">
+        <img src="https://cdn.prod.website-files.com/674d847bf8e817966d307714/674d90f74ff2fe8b0b912b97_slide-1.avif" class="slide rounded-t-lg">
+
+
+        <img src="https://cdn.prod.website-files.com/674d847bf8e817966d307714/674d90f74ff2fe8b0b912b97_slide-1.avif" class="slide rounded-t-lg">
+        <img src="https://cdn.prod.website-files.com/674d847bf8e817966d307714/674d90f74ff2fe8b0b912b97_slide-1.avif" class="slide rounded-t-lg">
+        <img src="https://cdn.prod.website-files.com/674d847bf8e817966d307714/674d90f74ff2fe8b0b912b97_slide-1.avif" class="slide rounded-t-lg">
+        <img src="https://cdn.prod.website-files.com/674d847bf8e817966d307714/674d90f74ff2fe8b0b912b97_slide-1.avif" class="slide rounded-t-lg">
+        </div>
+      </div>
+
+
+      <div class="w-[40%] h-[550px] absolute flex flex-start bg-black top-0 left-0 z-30"></div>
+      <div class="front flex "></div>
+
+      <div class="front2 flex-end"></div>
+      <div class="w-[4%] h-[550px] absolute flex-end bg-black left-[98%] top-0 z-30"></div>
+
+
+      <div class="flex absolute gap-10 mt-[410px] mx-10 z-40">
+         <button onclick="fleshLeft()" class="rounded-xl border-gray-600 border-2 p-5 bottom-5 left-10 font-bold text-4xl bg-black text-white transition-all custom-flesh"><-</button>
+         <button onclick="fleshRight()" class="rounded-xl border-gray-600 border-2 p-5 bottom-5 left-10 font-bold text-4xl bg-black text-white transition-all custom-flesh">-></button>
+      </div>
+
+
+      <script>
+        const slider = document.getElementById('slider');
+        const slides = slider.querySelectorAll(".slide");
+        const slideWidth = slider.children[0].offsetWidth + 24;
+        const totalSlides = slides.length / 2;
+
+        let currentSlide = 0;
+
+        function getSlideWidth() {
+          return slider.querySelector('.slide').offsetWidth + 24;
+        }
+
+        
+        function updateSlider(animated = true) {
+          const slideWidth = getSlideWidth();
+          if (!animated){
+            slider.style.transition = "none";
+          } else {
+            slider.style.transition = "transform 0.5s ease-in-out"
+          }
+          
+          slider.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+          updateSlideNumber();
+        }
+
+        function updateSlideNumber() {
+          const sliderNumber = document.getElementById('number');
+          const displaySlide = (currentSlide % totalSlides) + 1;
+          sliderNumber.textContent = `${String(displaySlide).padStart(2, "0")}/${String(totalSlides).padStart(2, "0")}`
+        }
+
+
+        function fleshRight() {
+          currentSlide++;
+          updateSlider(true);
+
+          if(currentSlide === slides.length - totalSlides) {
+          setTimeout(() => {
+            currentSlide = 0;
+            updateSlider(false);
+          },500)
+        }
+     }
+
+        function fleshLeft() {
+          if(currentSlide === 0) {
+            currentSlide = slides.length - totalSlides;
+            updateSlider(false);
+          } 
+          currentSlide--;
+          updateSlider(true)
+        }
+
+
+        window.onload = () => {
+          updateSlider(false);
+        }
+      </script>
+</body>
+</html>

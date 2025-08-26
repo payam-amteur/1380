@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal Management</title>
+  <style>
+    *{box-sizing: border-box;}
+    body{
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-color: cadetblue;
+    }
+    .container{
+      background-color: rgb(21, 46, 47);
+      width: 450px;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      border-radius: 5px;
+    }
+    h1,h2,h3{
+      color: aliceblue;
+    }
+    .summary{
+      margin-top: 55px;
+    }
+    .card{
+      background-color: brown;
+      width: 35%;
+      transition: 0.25s;
+    }
+    .income{
+      margin-left: 10px;
+      border-radius: 5px;
+      background-color: green;
+    }
+    .expense{
+      border-radius: 5px;
+      margin-left: 62%;
+      margin-top: -77px;
+      background-color: red;
+      
+    }
+    .balance{
+      margin-top: 20px;
+      margin-left: 32%;
+      border-radius: 5px;
+      background-color: rgb(228, 139, 6);
+    }
+    .income:hover{
+      background-color: rgb(43, 172, 7);
+    }
+    .expense:hover{
+      background-color: rgb(133, 8, 8);
+    }
+    .balance:hover{
+      background-color: rgb(183, 112, 5)
+    }
+    #transaction-form{
+      display: grid;
+    }
+    #transaction-form{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 10px;
+      justify-content: center;
+    }
+    #transaction-form input,
+    #transaction-form select{
+      width: 90%;
+      padding: 5px;
+      border-radius: 3px;
+      border: none;
+      outline: none;
+      background-color: rgb(7, 82, 85);
+      font-weight: 700;
+      font-size: 15px;
+      color: white;
+    }
+    .submitt{
+      width: 98%;
+      grid-column: 1 / -1;
+      margin-left: 4px;
+      font-size: 18px;
+      border-radius: 4px;
+      border: none;
+      outline: none;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    li{
+      list-style: decimal;
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 10px;
+      color: rgb(101, 101, 227);
+    }
+    li > button{
+      border-radius: 4px;
+      background-color: transparent;
+      outline: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+  
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>My Management</h1>
+    </header>
+
+    <section class="summary">
+      <div class="card income">
+        <h3>Total Income</h3>
+        <p id="total-income">0$</p>
+      </div>
+      <div class="card expense">
+        <h3>Total Expense</h3>
+        <p id="total-expense">0$</p>
+      </div>
+      <div class="card balance">
+        <h3>Balance</h3>
+        <p id="balance">0$</p>
+      </div>
+    </section>
+
+    <section class="transaction-form">
+      <h2>Add New Transaction</h2>
+      <form id="transaction-form">
+        <input type="text" id="title" placeholder="Transaction Title" required />
+        <input type="number" id="amount" placeholder="Amount" required />
+        <select id="type">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        <input type="date" id="date" required />
+        <button type="submit" class="submitt">Add</button>
+      </form>
+    </section>
+
+    <section class="transactions">
+      <h2>Transaction List</h2>
+      <ul id="transaction-list"></ul>
+    </section>
+
+    <section class="chart">
+      <h2>Chart of Expenses</h2>
+      <canvas id="expense-chart"></canvas>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const form = document.getElementById("transaction-form");
+    const titleInput = document.getElementById("title");
+    const amountInput = document.getElementById("amount");
+    const typeInput = document.getElementById("type");
+    const dateInput = document.getElementById("date");
+    const list = document.getElementById("transaction-list");
+
+    const incomeEl = document.getElementById("total-income");
+    const expenseEl = document.getElementById("total-expense");
+    const balanceEl = document.getElementById("balance");
+
+    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+    let chart;
+    function renderChart() {
+      const ctx = document.getElementById("expense-chart").getContext("2d");
+      const expenseCategories = {};
+
+      transactions.forEach((tx) => {
+        if (tx.type === "expense") {
+          expenseCategories[tx.title] = (expenseCategories[tx.title] || 0) + tx.amount;
+        }
+      });
+
+      const labels = Object.keys(expenseCategories);
+      const data = Object.values(expenseCategories);
+
+      if (chart) chart.destroy();
+
+      chart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Expenses',
+            data: data,
+            backgroundColor: ['#f87171', '#fb923c', '#facc15', '#34d399', '#60a5fa']
+          }]
+        }
+      });
+    }
+
+    function saveToLocalStorage() {
+      localStorage.setItem("transactions", JSON.stringify(transactions));
+    }
+
+    function updateSummary() {
+      const income = transactions
+        .filter(t => t.type === "income")
+        .reduce((acc, t) => acc + t.amount, 0);
+
+      const expense = transactions
+        .filter(t => t.type === "expense")
+        .reduce((acc, t) => acc + t.amount, 0);
+
+      incomeEl.textContent = `${income.toLocaleString()} $`;
+      expenseEl.textContent = `${expense.toLocaleString()} $`;
+      balanceEl.textContent = `${(income - expense).toLocaleString()} $`;
+    }
+
+    function renderTransactions() {
+      list.innerHTML = "";
+      transactions.forEach((tx, index) => {
+        const li = document.createElement("li");
+        li.className = tx.type === "income" ? "income-item" : "expense-item";
+        li.innerHTML = `
+          <span>${tx.title} - ${tx.amount.toLocaleString()} $ - ${tx.date}</span>
+          <button onclick="deleteTransaction(${index})">❌</button>
+        `;
+        list.appendChild(li);
+      });
+      updateSummary();
+      renderChart();
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const title = titleInput.value.trim();
+      const amount = +amountInput.value;
+      const type = typeInput.value;
+      const date = dateInput.value;
+
+      if (!title || !amount || !date) return alert("Please fill in all fields");
+
+      const newTransaction = { title, amount, type, date };
+      transactions.push(newTransaction);
+
+      saveToLocalStorage();
+      renderTransactions();
+      form.reset();
+    });
+
+    function deleteTransaction(index) {
+      if (confirm("Are you sure?")) {
+        transactions.splice(index, 1);
+        saveToLocalStorage();
+        renderTransactions();
+      }
+    }
+
+    renderTransactions();
+  </script>
+</body>
+</html>
+
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{box-sizing: border-box;}
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: rgba(14, 15, 50, 0.974);
+            perspective: 1000px;    
+        }
+
+        .container{
+            background-color: rgb(59, 41, 28);
+            position: absolute;
+            width: 400px;
+            margin: -5px 50% 0 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            z-index: 5;
+            transition:  width 1.5s ease;
+            
+        }
+        .container:hover{
+            background-color: rgb(74, 49, 31);
+        }
+        .card{
+            font-size: 45px;
+            position: relative;
+            margin-inline: 60px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            text-align: center;
+            padding: 38px 20px;
+            background-color: rgb(40, 21, 128);
+            width: 20%;
+            border-radius: 90px;
+            color: whitesmoke;
+            user-select: none;
+            transition: transform 0.6s, background-color 0.4s;
+            cursor: pointer;
+        }
+        .card:hover{
+            background-color:  rgb(61, 31, 194);
+        }
+
+        .card.shake {
+         animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+            0%{transform: translateX(0);}
+             25%{transform: translateX(-5px);}
+              50%{transform: translateX(5px);}
+               75%{transform: translateX(-5px);}
+                100%{transform: translateX(0);}
+        }
+        .back{
+            width: 310px;
+            height: 100px;
+            background-color: rgba(14, 16, 61, 0.974);
+            margin-left: 100px;
+            border-radius: 0%;
+            transition:  0.5s;
+            transform: rotateY(50deg) rotateX(-30deg);
+            border: 1px solid rgb(255, 174, 0);
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 10px rgba(255, 174, 0, 0.768);
+            display: flex;
+            animation: lef 5s alternate infinite
+        }
+        @keyframes lef {
+            0%{
+                 box-shadow: 0 10px 20px rgba(255, 174, 0, 0.94);
+            }
+            100%{
+                 box-shadow: 0 10px 20px rgba(192, 6, 6, 0.768);
+            }
+        }
+        .back:hover{
+            transform: translate(-20px);
+            box-shadow: 0 10px 20px rgb(255, 174, 0);
+        }
+        
+        .back1{
+            z-index: 4;
+            margin-top: 150px;
+        }
+        .back2{
+            z-index: 3;
+            margin-top: -70px;
+        }
+        .back3{
+            z-index: 2;
+            margin-top: -50px;
+        }
+        .back4{
+            z-index: 1;
+            margin-top: -50px;
+        }
+
+        .topD{
+            width: 100%;
+            height: 27px;
+            background-color: rgb(255, 174, 0);
+            margin-bottom: 5px;
+        }
+        .img{
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+        }
+        .image{
+            margin-left: 5px;
+            width: 28px;
+            display: flex;
+            overflow: hidden;
+            transition: 0.5s;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .href{
+            margin-left: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            color: rgb(27, 33, 41);
+        }
+        .start1{
+             margin-left: 50px;
+             margin-top: 40px;
+             padding: 0;
+             cursor: pointer;
+             background-color: transparent;
+             outline: none;
+             border: none;
+             font-weight: 900;
+             font-size: 35px ;
+             color: white;
+        }
+        .start2{
+             cursor: pointer;
+             background-color: transparent;
+             outline: none;
+             border: none;
+             font-weight: 900;
+             font-size: 35px ;
+             color: white;
+             margin-top: -29px;
+             margin-left: 170px;
+             letter-spacing: 5px;
+        }
+
+        .start{
+            font-size: 35px;
+            padding: 0;
+            color: white;
+        }
+        @media (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 95%;
+    margin: 20px auto 0;
+    gap: 10px;
+  }
+
+  .card {
+    width: 22%;
+    font-size: 30px;
+    padding: 25px 10px;
+    margin: 0;
+    border-radius: 50%;
+  }
+
+  .back {
+    transform: none;
+    width: 90%;
+    margin: 20px auto;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  .start1, .start2 {
+    font-size: 25px;
+    margin: 10px 0;
+  }
+
+  .start {
+    font-size: 28px;
+  }
+
+  .topD {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .image {
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .href {
+    font-size: 16px;
+    margin: 5px;
+  }
+}
+
+
+    
+   
+     
+    </style>
+</head>
+<body>
+
+    <div class="topD">
+        <div class="image">
+            <img src="D:\tamrin\tamriop\menu-burger.png" class="img">
+            <a href="#" class="href">update</a>
+             <a href="#" class="href">what's up!!!</a>
+        </div>
+    </div>
+    
+
+
+
+    <div class="container">
+              <div class="card card1">?</div>
+              <div class="card card2">?</div>
+              <div class="card card3">?</div>
+              <div class="card card4">?</div>
+              <div class="card card5">?</div>
+              <div class="card card6">?</div>
+              <div class="card card7">?</div>
+              <div class="card card8">?</div>
+              <div class="card card9">?</div>
+              <div class="card card10">?</div>
+    </div>
+
+
+    <div class="back back1"></div>
+    <div class="back back2"></div>
+    <div class="back back3">
+        <button onclick="reset()" class="start2">reset</button>
+    </div>
+    <div class="back back4">
+        <div class="start">00:01:00</div>
+        <button onclick="start()" class="start1">START</button>
+    </div>
+
+    
+   
+    
+
+<script>
+           
+           var divimage = document.querySelector('.image');
+           var burger = document.querySelector('.img');
+           var container = document.querySelector('.container');
+           var backs = document.querySelectorAll('.back');
+
+           
+           var values = [1,1,2,2,3,3,4,4,5,5];
+           values = values.sort(() => Math.random() - 0.5);
+
+           const cards = document.querySelectorAll('.card');
+
+          cards.forEach((card,index) => {
+           card.dataset.value = values[index];
+          });
+
+          let firstcard = null;
+          let secondcard = null;
+          let lock = false;
+          let winmatch = 0;
+
+           cards.forEach(card =>{
+            card.addEventListener('click',() =>{
+               if(lock || card.classList.contains("flipped")) return;
+
+
+               card.textContent = card.dataset.value;
+               card.classList.add("flipped");
+
+               if(!firstcard){
+                  firstcard = card;
+               } else {
+                secondcard = card;
+                lock = true;
+
+                if (firstcard.dataset.value === secondcard.dataset.value) {
+                    winmatch++;
+
+                      setTimeout(() => {
+                      firstcard.style.visibility = "hidden";
+                      secondcard.style.visibility = "hidden";
+
+                    firstcard = null;
+                    secondcard = null;
+                    lock = false;
+
+                    if(winmatch === 5){
+                        alert("you WIN!!!!");
+                        container.style.width ='10px';
+                        container.style.height = '700px'
+                        backs.forEach(back =>{
+                            back.style.backgroundColor = 'rgba(9, 192, 6, 0.519)';
+                        });
+                    }
+                    },500);
+
+                   
+                } else {
+                    firstcard.classList.add('shake');
+                    secondcard.classList.add('shake');
+
+                    setTimeout(() => {
+                    firstcard.textContent = "?";
+                    secondcard.textContent = "?";
+                    firstcard.classList.remove("flipped");
+                    secondcard.classList.remove("flipped");
+
+                    firstcard.classList.remove('shake');
+                    secondcard.classList.remove('shake');
+
+                    firstcard = null;
+                    secondcard = null;
+                    lock = false;
+                    },600);
+                }
+               }
+            });
+           });
+
+
+           burger.addEventListener('click',() =>{
+              if(divimage.style.width === '250px'){
+                divimage.style.width = '28px';
+              } else{
+                divimage.style.width = '250px';
+              }
+           })
+           // divimage.style.width = divimage.style.width === '250px' ? '28px' : '250px';
+
+           let totalSeconds  = 60;
+           let timerInterval;
+
+          function start() {
+    if(timerInterval) return;
+
+    timerInterval = setInterval(() =>{
+        if(winmatch ===5 ){
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.querySelector('.start').textContent = '00:00:00';
+            return;
+        }
+        if(totalSeconds <= 0){
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.querySelector('.start').textContent = '00:00:00';
+            alert('you looooose');
+            return;
+        }
+        totalSeconds--;
+        const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+        const seconds = String(Math.floor(totalSeconds % 60)).padStart(2, '0');
+        document.querySelector('.start').textContent = `00:${minutes}:${seconds}`;
+    },1000);
+}
+
+function reset(){
+    cards.forEach(card =>{
+    card.textContent = '?';
+    card.style.visibility = 'visible';
+    card.classList.remove("flipped", "shake");
+    });
+    values = [1,1,2,2,3,3,4,4,5,5].sort(() => Math.random() - 0.5);
+    cards.forEach((card,index) =>{
+      card.dataset.value = values[index]
+    });
+    
+
+    clearInterval(timerInterval);
+    totalSeconds = 60;
+    timerInterval = null;
+    document.querySelector('.start').textContent = '00:01:00';
+
+    firstcard = null;
+    secondcard = null;
+    lock = false;
+    winmatch = 0;
+
+     container.style.width = '400px';
+    container.style.height = 'auto';
+    backs.forEach(back => {
+        back.style.backgroundColor = 'rgba(14, 16, 61, 0.974)';
+    }); 
+}
+
+           
+</script>
+</body>
+</html>
