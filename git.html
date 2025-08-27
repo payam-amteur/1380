@@ -30,7 +30,30 @@
                         .my-back1{
                                     background: 
                                     linear-gradient(to right,#235347,#0b2b26);
+                                    display: grid;
+                                    gap: 5px;                                    
                         }
+                        .my-input{
+                              padding-inline: 10px;
+                              background-color: rgba(97, 67, 133, 0.49);
+                              border-radius: 4px;
+                              border-left: 2px solid transparent;
+                              border-bottom: 2px solid transparent;
+                              transition: border-color 0.3s ease, border-width 0.3s ease;
+                              outline: none;
+                        }
+                        .my-input:focus{
+                              border-left: 2px solid #28dbae;
+                              border-bottom: 2px solid #28dbae;
+                        }
+                        .my-input::placeholder{
+                              letter-spacing: 2px;
+                              font-size: 18px;
+                        }
+                        .my-input:focus::placeholder {
+                              color: white;
+                        }
+
             </style>
 </head>
 <body>
@@ -63,8 +86,15 @@
             </div>
             <div class="z-50 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-80 opacity-70 rounded-lg grid grid-cols-1 my-back1">
                         <h1 class="text-center text-white text-4xl tracking-wider my-2">Login</h1>
-                        <input type="text" placeholder="username" class="my-input">
-                        <input type="password" placeholder="*******" class="my-input">
+
+                        <div class="grid gap-3 py-3 px-3 my-inputs">
+                        <input type="text" placeholder="username" class=" my-input">
+                        <input type="password" placeholder="*******" class=" my-input">
+                        </div>
+
+                        <input type="submit" value="Login" class="cursor-pointer text-3xl bg-[rgba(97,67,133,0.49)] w-60 h-16
+                         text-white relative left-[50%] -translate-x-1/2 rounded-lg tracking-widest top-5
+                         hover:bg-[rgba(97,67,133,0.871)] transition-all duration-300 my-input1">
 
             </div>   
             </div>
