@@ -9,6 +9,12 @@ function Day_Night(){
 
             my_circul.forEach(mc => {
                mc.classList.toggle('active4');   
-            })
+            });
+
+            if(my_toggle.textContent === "D"){
+                        my_toggle.textContent = "N";
+            } else {
+                        my_toggle.textContent = "D";
+            }
             
 }
