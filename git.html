@@ -10,7 +10,6 @@
                                     background: 
                                     linear-gradient(to left,rgba(97, 67, 133, 0.49),#5163958d),
                                     linear-gradient(to right,#c33764,#1d2671);
-                                    
                         }
                         .my-circul{
                                     background: linear-gradient(to left,#764ba2,#667eea);
@@ -41,6 +40,7 @@
                               border-bottom: 2px solid transparent;
                               transition: border-color 0.3s ease, border-width 0.3s ease;
                               outline: none;
+                              color: white;
                         }
                         .my-input:focus{
                               border-left: 2px solid #28dbae;
@@ -52,6 +52,32 @@
                         }
                         .my-input:focus::placeholder {
                               color: white;
+                        }
+
+                        .my-bright{
+                              background-color: purple;
+                        }
+                        .my-toggle{
+                              background-color: rgb(158, 111, 158);
+                        }
+                        .active1{ /*  برای جابجایی حالت شب و روز */
+                              transition: transform 0.3s ease;
+                              transform: translateX(25px);
+                        }
+                        .active2{/*  برای تغییر رنگ پشت*/
+                              background: 
+                                    linear-gradient(to left,rgb(158, 109, 185),#4cccff43);
+                                    transition: all 0.5s;
+                        }
+                        .active3{ /*  برای تغییر پشت دکمه*/
+                              background-color: #b9f4e5;
+                              transition: all 0.3s;
+                        }
+                        .active4{
+                              opacity: 0;
+                        }
+                        .active4:hover{
+                              opacity: 1;
                         }
 
             </style>
@@ -95,9 +121,11 @@
                         <input type="submit" value="Login" class="cursor-pointer text-3xl bg-[rgba(97,67,133,0.49)] w-60 h-16
                          text-white relative left-[50%] -translate-x-1/2 rounded-lg tracking-widest top-5
                          hover:bg-[rgba(97,67,133,0.871)] transition-all duration-300 my-input1">
-
-            </div>   
             </div>
-         
+            <div class="z-50 absolute px-1 rounded-lg w-14 h-6 top-1 left-1 opacity-70 my-bright">
+                  <button onclick="Day_Night()" class="relative text-white text-lg rounded-lg w-8 h-6 opacity-70 -left-1 cursor-pointer font-semibold my-toggle">D</button>
+            </div>
+            </div>
+         <script src="git.js"></script>
 </body>
 </html>
